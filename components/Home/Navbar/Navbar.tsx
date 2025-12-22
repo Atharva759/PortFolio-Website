@@ -1,100 +1,138 @@
 "use client";
-import { FaCode } from "react-icons/fa";
-import { NavLinks } from "@/constant/contant";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { FaCode } from "react-icons/fa";
 import { BiDownload } from "react-icons/bi";
 import { HiBars3BottomRight } from "react-icons/hi2";
-import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { NavLinks } from "@/constant/contant";
 
 const Navbar = () => {
-  const [navBg, setNavBg] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
   useEffect(() => {
-    const handler = () => {
-      if (window.scrollY >= 90) setNavBg(true);
-      if (window.scrollY < 90) setNavBg(false);
-    };
-    window.addEventListener("scroll", handler);
-    return () => window.removeEventListener("scroll", handler);
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
   return (
-    <div
-      className={`transition-all ${
-        navBg ? "bg-[#0f142ed9] shadow-md" : "fixed"
-      } duration-200 h-[12vh] z-10000 fixed w-full`}
-    >
-      <div className="flex items-center h-full justify-between w-[90%] mx-auto">
-        {/*LOGO*/}
-        <div className="flex items-center space-x-2">
-          <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center flex-col">
-            <FaCode className="w-5 h-5 text-black" />
+    <>
+      {/* Navbar */}
+      <motion.nav
+        initial={{ y: -80 }}
+        animate={{ y: 0 }}
+        className={`fixed top-0 w-full z-10000 transition-all duration-300
+        ${
+          scrolled
+            ? "bg-[#0f142ed9] backdrop-blur-lg shadow-lg border-b border-white/10"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="h-[11vh] w-[90%] mx-auto flex items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
+              <FaCode className="text-black w-5 h-5" />
+            </div>
+            <h1 className="hidden sm:block text-2xl font-bold text-white tracking-wide">
+              ATHARVA
+            </h1>
           </div>
-          <h1 className="text-xl hidden sm:block md:text-2xl text-white font-bold">
-            ATHARVA
-          </h1>
-        </div>
-        {/*Navlinks*/}
-        <div className="hidden lg:flex items-center space-x-10">
-          {NavLinks.map((link) => {
-            return (
+
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex gap-10">
+            {NavLinks.map((link) => (
               <Link
                 key={link.id}
                 href={link.url}
-                className="text-base hover:text-cyan-300 text-white font-medium transition-all duration-200"
+                className="relative text-white font-medium group"
               >
-                <p> {link.label}</p>
+                {link.label}
+                <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-cyan-400 transition-all duration-300 group-hover:w-full" />
               </Link>
-            );
-          })}
-        </div>
-        {/*buttons*/}
-        <div className="flex items-center space-x-4">
-          <button className="px-8 py-3.5 text-sm cursor-pointer rounded-lg bg-blue-800 hover:bg-blue-900 transition-all duration-300 text-white flex items-center space-x-2">
-            <BiDownload className="w-5 h-5" />
-            <span>Download CV</span>
-          </button>
-          {/*Burger Menu*/}
-          <HiBars3BottomRight
-            className="w-8 h-8 cursor-pointer text-white lg:hidden"
-            onClick={() => setOpen(true)}
-          />
-        </div>
-      </div>
-      {/*Mobile Nav*/}
-      <div
-        className={`fixed top-0 right-0 h-full w-[70%] sm:w-[60%] bg-[#0f142e] z-10001 transform transition-transform duration-300
-        ${open ? "translate-x-0" : "translate-x-full"}`}
-      >
-        <div className="flex flex-col p-8 space-y-8">
-          <button
-            className="text-white text-right"
-            onClick={() => setOpen(false)}
-          >
-            ✕ Close
-          </button>
-          {NavLinks.map((link) => (
-            <Link
-              key={link.id}
-              href={link.url}
-              onClick={() => setOpen(false)}
-              className="text-lg text-white hover:text-cyan-300 transition"
+            ))}
+          </div>
+
+          {/* Actions */}
+          <div className="flex items-center gap-4">
+            <a
+              href="/Atharva_Khadake_CV_v2.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:flex items-center gap-2 px-6 py-3 rounded-lg
+              bg-blue-700 hover:bg-blue-800 transition text-white text-sm"
             >
-              {link.label}
-            </Link>
-          ))}
-          <button className="mt-6 px-6 py-3 bg-blue-800 hover:bg-blue-900 text-white rounded-lg flex items-center space-x-2">
-            <BiDownload className="w-5 h-5" />
-            <span>Download CV</span>
-          </button>
+              <BiDownload className="w-5 h-5" />
+              Download CV
+            </a>
+
+            <HiBars3BottomRight
+              className="w-8 h-8 text-white cursor-pointer lg:hidden"
+              onClick={() => setOpen(true)}
+            />
+          </div>
         </div>
-      </div>
-      {open && (
-        <div
-          className="fixed inset-0 bg-transparent z-10000"
-          onClick={() => setOpen(false)}
-        />
-      )}
-    </div>
+      </motion.nav>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {open && (
+          <>
+            {/* Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setOpen(false)}
+              className="fixed inset-0 bg-black/40 z-9999"
+            />
+
+            {/* Drawer */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="fixed top-0 right-0 h-full w-[70%] sm:w-[60%]
+              bg-[#0f142e] z-10000 p-8"
+            >
+              <button
+                className="text-white mb-10"
+                onClick={() => setOpen(false)}
+              >
+                ✕ Close
+              </button>
+
+              <div className="flex flex-col gap-8">
+                {NavLinks.map((link) => (
+                  <Link
+                    key={link.id}
+                    href={link.url}
+                    onClick={() => setOpen(false)}
+                    className="text-lg text-white hover:text-cyan-300 transition"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+
+                <a
+                  href="/Atharva_Khadake_CV_v2.pdf"
+                  download
+                  className="mt-6 flex items-center gap-2 px-6 py-3 rounded-lg
+                  bg-blue-700 hover:bg-blue-800 transition text-white"
+                >
+                  <BiDownload className="w-5 h-5" />
+                  Download CV
+                </a>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
