@@ -21,10 +21,7 @@ const Contact = () => {
 
           {/* Contact Details */}
           <div className="mt-10 space-y-5">
-            <div className="flex items-center gap-4">
-              <BiPhone className="w-7 h-7 text-cyan-300" />
-              <span className="text-lg text-gray-300">+91 9356784729</span>
-            </div>
+            
 
             <div className="flex items-center gap-4">
               <BiEnvelope className="w-7 h-7 text-cyan-300" />
