@@ -5,17 +5,32 @@ import { motion } from "framer-motion";
 
 const Services = () => {
   return (
-    <section className="pt-24 pb-24">
+    <section className="relative pt-28 pb-32 overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute inset-0 bg-linear-to-b from-cyan-500/5 via-transparent to-transparent" />
+      <div
+        className="
+          absolute top-1/3 left-1/2 -translate-x-1/2
+          w-150 h-150
+          bg-blue-500/10 blur-[140px] rounded-full
+        "
+      />
+
       {/* Heading */}
-      <motion.h1
-        initial={{ opacity: 0, y: 30 }}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="text-center text-3xl md:text-4xl xl:text-5xl font-bold text-white"
+        className="relative z-10 text-center"
       >
-        What I build & work with
-      </motion.h1>
+        <p className="text-cyan-300/80 uppercase tracking-widest text-sm mb-3">
+          Services
+        </p>
+        <h1 className="text-3xl md:text-4xl xl:text-5xl font-semibold text-white">
+          What I build & work with
+        </h1>
+      </motion.div>
 
       {/* Grid */}
       <motion.div
@@ -26,63 +41,49 @@ const Services = () => {
           hidden: {},
           visible: {
             transition: {
-              staggerChildren: 0.15,
+              staggerChildren: 0.12,
             },
           },
         }}
-        className="w-[90%] sm:w-[80%] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 mt-20"
+        className="relative z-10 w-[90%] sm:w-[80%] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mt-20"
       >
-        <motion.div
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: { opacity: 1, y: 0 },
-          }}
-        >
-          <ServiceCard
-            icon="/images/s2.png"
-            name="Frontend Engineering"
-            desc="Building responsive, user-friendly interfaces using React.js and Tailwind CSS with a strong focus on usability and performance."
-          />
-        </motion.div>
-
-        <motion.div
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: { opacity: 1, y: 0 },
-          }}
-        >
-          <ServiceCard
-            icon="/images/s3.png"
-            name="Backend & APIs"
-            desc="Developing secure and scalable backend systems using Spring Boot and Node.js, including REST APIs, authentication, and business logic."
-          />
-        </motion.div>
-
-        <motion.div
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: { opacity: 1, y: 0 },
-          }}
-        >
-          <ServiceCard
-            icon="/images/s1.png"
-            name="Databases & Cloud"
-            desc="Working with PostgreSQL, MongoDB, and MySQL, optimizing queries, managing data efficiently, and deploying on cloud platforms like AWS."
-          />
-        </motion.div>
-
-        <motion.div
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: { opacity: 1, y: 0 },
-          }}
-        >
-          <ServiceCard
-            icon="/images/s4.png"
-            name="Scalable Systems"
-            desc="Designing production-ready applications using microservices architecture, service discovery, API gateways, and real-world deployment practices."
-          />
-        </motion.div>
+        {[
+          {
+            tech: "react",
+            name: "Frontend Engineering",
+            desc:
+              "Building responsive, accessible interfaces with React and Tailwind, focused on performance and clean UX.",
+          },
+          {
+            tech: "node",
+            name: "Backend & APIs",
+            desc:
+              "Designing secure, scalable backends using Spring Boot and Node.js with robust REST APIs.",
+          },
+          {
+            tech: "postgresql",
+            name: "Databases & Cloud",
+            desc:
+              "Optimizing data layers with PostgreSQL, MongoDB, MySQL, and deploying on AWS.",
+          },
+          {
+            tech: "springboot",
+            name: "Scalable Systems",
+            desc:
+              "Architecting production-ready systems with microservices, gateways, and real-world deployments.",
+          },
+        ].map((service, i) => (
+          <motion.div
+            key={i}
+            variants={{
+              hidden: { opacity: 0, y: 16 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
+            <ServiceCard {...service} />
+          </motion.div>
+        ))}
       </motion.div>
     </section>
   );
