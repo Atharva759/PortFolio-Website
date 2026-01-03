@@ -21,8 +21,10 @@ import {
   SiPostman,
   SiJunit5,
   SiFigma,
-  SiFirebase
+  SiFirebase,
+  SiGooglegemini
 } from "react-icons/si";
+import { FcServices } from "react-icons/fc";
 
 export const TECH_STACK = {
   java: {
@@ -129,5 +131,15 @@ export const TECH_STACK = {
     label:"Firebase",
     icon:SiFirebase,
     color:"#EED202"
+  },
+  systemdesign:{
+    label:"System Design",
+    icon:FcServices,
+    color:"#fbbf2b"
+  },
+  gemini:{
+    label:"Google Gemini",
+    icon:SiGooglegemini,
+    color:"#772bfb"
   }
 } as const;

@@ -11,11 +11,20 @@ export const PROJECTS: {
   live?: string;
 }[] = [
   {
+    images: ["/images/urlshort/u1.png","/images/urlshort/u2.png",],
+    title: "URL Shortner",
+    desc:
+      "Built a URL shortener that generates compact links from long URLs, ensuring efficient redirection and a clean user experience.",
+    tech: ["java","react", "springboot", "postgresql","systemdesign"],
+    github: "https://github.com/Atharva759/URL-Shortner-App",
+    live: "https://make-short.vercel.app/",
+  },
+  {
     images: ["/images/aiquiz/p1.png","/images/aiquiz/p2.png","/images/aiquiz/p3.png"],
     title: "AI-Powered Quiz Generator",
     desc:
       "A scalable quiz generation platform powered by GenAI, built using Spring Boot microservices with secure authentication and PostgreSQL logging.",
-    tech: ["springboot", "postgresql", "java"],
+    tech: ["springboot", "postgresql", "java","gemini"],
     github: "https://github.com/Atharva759/AI-Quiz-Project",
   },
   {

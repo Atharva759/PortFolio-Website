@@ -40,11 +40,11 @@ const Hero = () => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="mt-6 text-base sm:text-lg md:text-xl text-white/80 flex flex-wrap items-center justify-center gap-2"
+          className="font-semibold mt-6 text-base sm:text-lg md:text-xl text-white/80 flex flex-wrap items-center justify-center gap-2"
         >
           Hi, I’m{" "}
           <span className="text-cyan-300 font-medium">Atharva</span> 
-          <span className="font-semibold text-cyan-300">
+          <span className="p-2 font-bold text-cyan-300 backdrop-blur-md bg-white/10 rounded-lg">
             <Typewriter
               options={{
                 strings: [
