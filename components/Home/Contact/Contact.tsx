@@ -3,7 +3,7 @@
 import { BiEnvelope, BiMap, BiDownload } from "react-icons/bi";
 import { SiCodeforces } from "react-icons/si";
 
-const cvdrive = process.env.NEXT_PUBLIC_CV_DRIVE_URL;
+const cvdrive = process.env.NEXT_PUBLIC_CV_LINK_URL;
 
 const Contact = () => {
   return (
