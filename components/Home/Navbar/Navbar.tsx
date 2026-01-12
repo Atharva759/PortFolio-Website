@@ -7,7 +7,7 @@ import { HiBars3BottomRight } from "react-icons/hi2";
 import { motion, AnimatePresence } from "framer-motion";
 import { NavLinks } from "@/constant/contant";
 import { TECH_STACK } from "@/constant/techStack";
-const cvdrive = process.env.NEXT_PUBLIC_CV_DRIVE_URL;
+const cvdrive = process.env.NEXT_PUBLIC_CV_LINK_URL;
 
 const Navbar = () => {
   const ICONS = Object.values(TECH_STACK);
@@ -23,7 +23,6 @@ const Navbar = () => {
 
     return () => clearInterval(interval);
   }, [ICONS.length]);
-
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
     window.addEventListener("scroll", onScroll);
